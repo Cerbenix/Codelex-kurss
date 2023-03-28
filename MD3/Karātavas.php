@@ -14,14 +14,13 @@
  $playWord = str_split((str_repeat('_', count($playWordSplit))));
 
  $guesses = 0;
- $maxGuesses = 3;
 
  echo 'Lets play *HANGMAN*';
  echo PHP_EOL;
  echo '**********************';
  echo PHP_EOL;
 
- while($guesses < $maxGuesses) {
+ while($guesses < 3) {
 
    echo implode($playWord);
    echo PHP_EOL;
@@ -46,4 +45,3 @@
   echo "Your word was - $pickWord";
   echo PHP_EOL;
   echo 'You Lose';
-
