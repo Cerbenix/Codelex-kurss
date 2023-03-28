@@ -5,6 +5,8 @@ $TTT->turn = 'X';
 $TTT->board = [['*','*','*'],['*','*','*'],['*','*','*']];
 $TTT->result = '-';
 
+$allCells = array_merge($TTT->board[0], $TTT->board[1], $TTT->board[2]);
+
 echo "Lets play Tik Tac Toe";
 echo PHP_EOL;
 echo '*********************';
@@ -70,8 +72,10 @@ while($TTT->result == '-') {
   if ($cell[0][2] == $cell[1][1] && $cell[1][1] == $cell[2][0] && $cell[0][2] != '*') {
     $TTT->result = $cell[0][2];
   }
-    //Determine if draw
-  $allCells = array_merge($TTT->board[0], $TTT->board[1], $TTT->board[2]);
+  elseif (!in_array('*', $allCells)) {
+    $TTT->result = 'D';
+  }
+
   if (!in_array('*', $allCells)) {
     $TTT->result = 'D';
   }
