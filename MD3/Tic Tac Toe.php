@@ -2,7 +2,7 @@
 
 $TTT = new stdClass();
 $TTT->turn = 'X';
-$TTT->board = [['*','*','*'],['*','*','*'],['*','*','*']];
+$TTT->board = [['*', '*', '*'], ['*', '*', '*'], ['*', '*', '*']];
 $TTT->result = '*';
 
 $allCells = array_merge(...$TTT->board);
@@ -11,7 +11,7 @@ echo "Lets play Tik Tac Toe";
 echo PHP_EOL;
 echo '*********************';
 
-while($TTT->result == '*') {
+while ($TTT->result == '*') {
 
   foreach ($TTT->board as $row) {
     echo PHP_EOL;
@@ -23,12 +23,12 @@ while($TTT->result == '*') {
   echo "It's $TTT->turn's turn";
   echo PHP_EOL;
 
-    //Read user input
+  //Read user input
   $playerSelection = readline(
     'Please select a cell by typing 0, 1, 2 corresponding to the row and 0, 1, 2 corresponding to the column: ');
   [$row, $column] = explode(' ', $playerSelection);
 
-    //Determine if user input is valid and change board value
+  //Determine if user input is valid and change board value
   if ($TTT->board[$row][$column] == '*') {
     $TTT->board[$row][$column] = $TTT->turn;
 
@@ -60,7 +60,7 @@ while($TTT->result == '*') {
     [[2, 0], [1, 1], [0, 2]],
   ];
 
-  foreach($combinations as $combo) {
+  foreach ($combinations as $combo) {
     $valueArray = [];
     foreach ($combo as $value) {
       [$row, $column] = $value;
@@ -76,14 +76,14 @@ while($TTT->result == '*') {
 
 }
 
-if($TTT->result == 'X' || $TTT->result == 'O'){
+if ($TTT->result == 'X' || $TTT->result == 'O') {
   echo PHP_EOL;
   echo "The winner is $TTT->result!";
-} elseif($TTT->result == 'D'){
+} elseif ($TTT->result == 'D') {
   echo PHP_EOL;
   echo "It's a draw!";
 }
-    //Print final board and result
+//Print final board and result
 foreach ($TTT->board as $row) {
   echo PHP_EOL;
   foreach ($row as $cell) {

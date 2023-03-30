@@ -45,17 +45,17 @@ array_push(
 );
 
 $playElements = [
-  "Rock"=>$rock,
-  "Paper"=>$paper,
-  "Scissors"=>$scissors,
-  "Lizard"=>$lizard,
-  "Spock"=>$spock,
-  'Dynamite'=> $dynamite
+  "Rock" => $rock,
+  "Paper" => $paper,
+  "Scissors" => $scissors,
+  "Lizard" => $lizard,
+  "Spock" => $spock,
+  'Dynamite' => $dynamite
 ];
 
 $repeat = 1;
 
-while($repeat == 1){
+while ($repeat == 1) {
 
   $pcSelection = array_rand($playElements, 1);
 
@@ -64,7 +64,7 @@ while($repeat == 1){
   echo '-------------------------------';
   echo PHP_EOL;
 
-  foreach ($playElements as $element){
+  foreach ($playElements as $element) {
     echo "$element->title" . PHP_EOL;
   }
 
@@ -73,20 +73,20 @@ while($repeat == 1){
 
   $playerSelection = null;
 
-  while($playerSelection == null){
+  while ($playerSelection == null) {
 
     $playerSelection = readline('Please choose your hero element:');
 
-    if(!array_key_exists($playerSelection, $playElements)){
+    if (!array_key_exists($playerSelection, $playElements)) {
       echo 'Invalid element, try again' . PHP_EOL;
       $playerSelection = null;
     }
   }
 
-  if($pcSelection == $playerSelection){
+  if ($pcSelection == $playerSelection) {
     echo "--------->It's a draw!<---------";
   } else {
-    if(in_array($playerSelection,$playElements[$pcSelection]->beats)){
+    if (in_array($playerSelection, $playElements[$pcSelection]->beats)) {
       echo "--------->You lose!<---------";
     } else {
       echo "--------->You win!<---------";
@@ -99,7 +99,7 @@ while($repeat == 1){
 
   $repeatSelection = readline("Do you want to play again(Y/N)?:");
 
-  if($repeatSelection == 'N' || $repeatSelection == 'n'){
+  if ($repeatSelection == 'N' || $repeatSelection == 'n') {
     return $repeat = 0;
   }
 }

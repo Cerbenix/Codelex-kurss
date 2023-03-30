@@ -1,7 +1,8 @@
 <?php
 
-    //Symbols
-function addGameSymbol($symbol, $worth){
+//Symbols
+function addGameSymbol($symbol, $worth)
+{
   $element = new stdClass();
   $element->symbol = $symbol;
   $element->worth = $worth;
@@ -19,9 +20,9 @@ $gameSymbols = [
 $playerCash = 100;
 $repeat = 1;
 
-while($repeat == 1) {
+while ($repeat == 1) {
   $playerCash--;
-    //Board
+  //Board
   $board = [];
   for ($row = 0; $row < 3; $row++) {
     for ($index = 0; $index < 4; $index++) {
@@ -29,13 +30,13 @@ while($repeat == 1) {
       $board[$row][$index] = array_rand($gameSymbols);
     }
   }
-    //Winning lines
+  //Winning lines
   $winningLines = [
-        //Straight lines
+    //Straight lines
     [$board[0][0], $board[0][1], $board[0][2], $board[0][3]],
     [$board[1][0], $board[1][1], $board[1][2], $board[1][3]],
     [$board[2][0], $board[2][1], $board[2][2], $board[2][3]],
-        //X-lines
+    //X-lines
     [$board[0][0], $board[1][1], $board[2][2], $board[2][3]],
     [$board[2][0], $board[1][1], $board[0][2], $board[0][3]],
     [$board[0][0], $board[0][1], $board[1][2], $board[2][3]],
@@ -44,7 +45,7 @@ while($repeat == 1) {
 
   foreach ($board as $row) {
     echo PHP_EOL;
-    for ($i = 0; $i < count($row); $i++){
+    for ($i = 0; $i < count($row); $i++) {
       echo "|{$gameSymbols[$row[$i]]->symbol}";
     }
   }
@@ -61,13 +62,13 @@ while($repeat == 1) {
 
   echo "You have $playerCash credits" . PHP_EOL;
 
-  if($playerCash <= 0){
+  if ($playerCash <= 0) {
     echo "House always wins :)";
     exit;
   }
   $repeatSelection = 'y';
   $repeatSelection = readline("Do you want to play again(Y/N)?:");
-  if($repeatSelection == 'N' || $repeatSelection == 'n') {
+  if ($repeatSelection == 'N' || $repeatSelection == 'n') {
     return $repeat = 0;
   }
 }
