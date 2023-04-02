@@ -23,9 +23,12 @@ $repeat = 1;
 while ($repeat == 1) {
   $playerCash--;
   //Board
+  $rows = 3;
+  $columns = 4;
+
   $board = [];
-  for ($row = 0; $row < 3; $row++) {
-    for ($index = 0; $index < 4; $index++) {
+  for ($row = 0; $row < $rows; $row++) {
+    for ($index = 0; $index < $columns; $index++) {
       $randKey = array_rand($gameSymbols);
       $board[$row][$index] = array_rand($gameSymbols);
     }
