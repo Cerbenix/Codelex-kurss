@@ -34,7 +34,8 @@ function WageChecker(int $hours, int $rate, string $name): void
     echo "$name's hourly rate is too small must be at least $8.00";
     return;
   }
-  $payment = $hours * $rate;
+
+  $payment = min($hours, 40) * $rate;
   if ($hours > $normalHours && $hours < $maxHours) {
     $payment += ($hours - $normalHours) * $rate * 1.5;
     $paymentConvert = number_format(($payment / 100), 2);
@@ -43,13 +44,8 @@ function WageChecker(int $hours, int $rate, string $name): void
     echo "$name has worked for more than 60h.";
 }
 
-function Wages(array $worker)
-{
-  global $employeeList;
-  foreach ($employeeList as $employee) {
-    echo PHP_EOL;
-    WageChecker($employee->hours, $employee->basePay, $employee->name);
-  }
-}
 
-Wages($employeeList);
+foreach ($employeeList as $employee) {
+  echo PHP_EOL;
+  WageChecker($employee->hours, $employee->basePay, $employee->name);
+}
