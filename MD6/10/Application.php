@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+require_once 'Video.php';
+require_once 'VideoStore.php';
+
 class Application
 {
   private VideoStore $videoStore;
@@ -95,114 +98,14 @@ class Application
 
   private function list_inventory()
   {
-    foreach ($this->videoStore->getVideos() as $video) {
+    foreach ($this->videoStore->getVideos() as $key => $video) {
       if ($video->getIsCheckedOut()) {
         $isAvailable = 'No';
       } else {
         $isAvailable = 'Yes';
       }
-      echo "Title: {$video->getTitle()}, Rating: {$video->getAvgRating()}, Available: $isAvailable" . PHP_EOL;
+      echo "{[]}Title: {$video->getTitle()}, Rating: {$video->getAvgRating()}, Available: $isAvailable" . PHP_EOL;
     }
-  }
-}
-
-class VideoStore
-{
-  private array $videos = [];
-
-  public function addVideo(string $videoTitle): void
-  {
-    $video = new Video($videoTitle);
-    $this->videos[] = $video;
-  }
-
-  public function checkOutVideo(string $videoTitle): bool
-  {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle && !$video->getIsCheckedOut()) {
-        $video->checkedOut();
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public function returnVideo(string $videoTitle): bool
-  {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle && $video->getIsCheckedOut()) {
-        $video->returned();
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public function userVideoRating(string $videoTitle, int $rating): bool
-  {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle) {
-        $video->setReceivedRatings($rating);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public function getVideos(): array
-  {
-    return $this->videos;
-  }
-}
-
-class Video
-{
-
-  private string $title;
-  private string $avgRating;
-  private bool $isCheckedOut;
-  private int $numberOfRatings;
-  private int $receivedRatings;
-
-  public function __construct(string $title)
-  {
-    $this->title = $title;
-    $this->avgRating = '-';
-    $this->isCheckedOut = false;
-    $this->numberOfRatings = 0;
-    $this->receivedRatings = 0;
-  }
-
-  public function checkedOut(): void
-  {
-    $this->isCheckedOut = true;
-  }
-
-  public function returned(): void
-  {
-    $this->isCheckedOut = false;
-  }
-
-  public function getTitle(): string
-  {
-    return $this->title;
-  }
-
-  public function getIsCheckedOut(): bool
-  {
-    return $this->isCheckedOut;
-  }
-
-  public function setReceivedRatings(int $receivedRatings): void
-  {
-    $this->receivedRatings += $receivedRatings;
-    $this->numberOfRatings++;
-    $this->avgRating = number_format($this->receivedRatings / $this->numberOfRatings, 1);
-  }
-
-  public function getAvgRating(): string
-  {
-    return $this->avgRating;
   }
 }
 

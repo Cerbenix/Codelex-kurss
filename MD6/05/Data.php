@@ -1,16 +1,5 @@
 <?php declare(strict_types=1);
 
-/*
-Create a class called Date that includes: three pieces of information as instance variables — a month, a day and a year.
-
-Your class should have a constructor that initializes the three instance variables and assumes that the values
-provided are correct. Provide a set and a get for each instance variable.
-
-Provide a method DisplayDate that displays the month, day and year separated by forward slashes /.
-
-Write a test application named DateTest that demonstrates class Date capabilities.
- */
-
 class Date
 {
   private string $month;
@@ -59,14 +48,3 @@ class Date
     echo "{$this->day}/{$this->month}/{$this->year}";
   }
 }
-
-$CurrDate = new Date('05', '30', '2022');
-echo $CurrDate->getDay() . '/';
-echo $CurrDate->getMonth() . '/';
-echo $CurrDate->getYear() . PHP_EOL;
-
-$CurrDate->setDay('06');
-$CurrDate->setMonth('04');
-$CurrDate->setYear('2023');
-
-$CurrDate->DisplayDate();
