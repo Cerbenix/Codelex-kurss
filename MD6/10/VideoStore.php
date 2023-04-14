@@ -4,47 +4,49 @@ class VideoStore
 {
   private array $videos = [];
 
-  public function addVideo(string $videoTitle): void
+  public function create(string $videoTitle): void
   {
     $video = new Video($videoTitle);
     $this->videos[] = $video;
   }
 
-  public function checkOutVideo(string $videoTitle): bool
+  public function rent(int $ID): void
   {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle && !$video->getIsCheckedOut()) {
-        $video->checkedOut();
-        return true;
-      }
-    }
-    return false;
+    $this->videos[$ID]->setAvailable(false);
   }
 
-  public function returnVideo(string $videoTitle): bool
+  public function return(int $ID): void
   {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle && $video->getIsCheckedOut()) {
-        $video->returned();
-        return true;
-      }
-    }
-    return false;
+    $this->videos[$ID]->setAvailable(true);
   }
 
-  public function userVideoRating(string $videoTitle, int $rating): bool
+  public function userVideoRating(string $ID, int $rating): void
   {
-    foreach ($this->videos as $video) {
-      if ($video->getTitle() == $videoTitle) {
-        $video->setReceivedRatings($rating);
-        return true;
-      }
-    }
-    return false;
+    $this->videos[$ID]->receiveRating($rating);
   }
 
   public function getVideos(): array
   {
     return $this->videos;
+  }
+  public function getAllAvailable(): array
+  {
+    $allAvailable = [];
+    foreach ($this->videos as $key => $video){
+      if($video->getAvailable()){
+        $allAvailable[$key] = $video;
+      }
+    }
+    return $allAvailable;
+  }
+  public function getAllReturnable(): array
+  {
+    $allReturnable = [];
+    foreach ($this->videos as $key => $video){
+      if(!$video->getAvailable()){
+        $allReturnable[$key] = $video;
+      }
+    }
+    return $allReturnable;
   }
 }

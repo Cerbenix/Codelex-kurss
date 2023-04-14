@@ -4,28 +4,20 @@ class Video
 {
 
   private string $title;
-  private string $avgRating;
-  private bool $isCheckedOut;
-  private int $numberOfRatings;
-  private int $receivedRatings;
+  private array $ratings;
+  private bool $available;
+
 
   public function __construct(string $title)
   {
     $this->title = $title;
-    $this->avgRating = '-';
-    $this->isCheckedOut = false;
-    $this->numberOfRatings = 0;
-    $this->receivedRatings = 0;
+    $this->ratings = [];
+    $this->available = true;
   }
 
-  public function checkedOut(): void
+  public function setAvailable(bool $bool): void
   {
-    $this->isCheckedOut = true;
-  }
-
-  public function returned(): void
-  {
-    $this->isCheckedOut = false;
+    $this->available = $bool;
   }
 
   public function getTitle(): string
@@ -33,20 +25,21 @@ class Video
     return $this->title;
   }
 
-  public function getIsCheckedOut(): bool
+  public function getAvailable(): bool
   {
-    return $this->isCheckedOut;
+    return $this->available;
   }
 
-  public function setReceivedRatings(int $receivedRatings): void
+  public function receiveRating(int $receivedRating): void
   {
-    $this->receivedRatings += $receivedRatings;
-    $this->numberOfRatings++;
-    $this->avgRating = number_format($this->receivedRatings / $this->numberOfRatings, 1);
+    $this->ratings[] = $receivedRating;
   }
 
-  public function getAvgRating(): string
+  public function getAvgRating(): float
   {
-    return $this->avgRating;
+    if (count($this->ratings) != 0) {
+      return array_sum($this->ratings) / count($this->ratings);
+    }
+    return 0;
   }
 }
