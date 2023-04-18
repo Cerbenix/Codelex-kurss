@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use stdClass;
 
 require_once 'config/api.php';
