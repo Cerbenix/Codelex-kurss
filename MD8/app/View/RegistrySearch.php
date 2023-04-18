@@ -9,8 +9,12 @@ class RegistrySearch
     return (int)readline('Input registry code: ');
   }
 
-  public function outputResults(object $report): void
+  public function outputResults(?object $report): void
   {
+    if($report == null){
+      $this->invalidInput();
+      return;
+    }
     foreach ($report as $key => $value) {
       if($key == "birthDate" && strpos($value, '*')){
         $value = str_replace(['-', '*'], '', $value);
@@ -40,6 +44,6 @@ class RegistrySearch
 
   public function invalidInput(): void
   {
-    echo "Invalid input, try again.";
+    echo "Invalid input, try again." . PHP_EOL;
   }
 }

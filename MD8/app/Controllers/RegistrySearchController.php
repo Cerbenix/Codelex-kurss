@@ -30,6 +30,15 @@ class RegistrySearchController
     $this->registrySearch->outputResults($report);
   }
 
+  public function handleAll(int $registryCode):void
+  {
+    $ownerReport = $this->registrySearchModel->getOwnerReport($registryCode);
+    $report1 = $this->registrySearchModel->processOwnerReport($ownerReport);
+    $businessReport = $this->registrySearchModel->getBusinessReport($registryCode);
+    $report2 = $this->registrySearchModel->processBusinessReport($businessReport);
+    $report = (object) array_merge((array)$report2, (array)$report1);
+    $this->registrySearch->outputResults($report);
+  }
   public function run(): void
   {
     while (true) {
@@ -48,8 +57,7 @@ class RegistrySearchController
           break;
         case 3:
           $registryCode = $this->registrySearch->inquire();
-          $this->handleBusinessRequest($registryCode);
-          $this->handleOwnerRequest($registryCode);
+          $this->handleAll($registryCode);
           break;
         default:
           $this->registrySearch->invalidInput();
